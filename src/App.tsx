@@ -5,11 +5,11 @@ function App() {
 
   return (
     <>
-			<section>
-				<div>{count}</div>
-			</section>
+      <section className="bg-red-500">
+        <div>{count}</div>
+      </section>
 
-			<button onClick={() => setCount(count + 1)}>click to add</button>
+      <button onClick={() => setCount(count + 1)}>click to add</button>
     </>
   )
 }
