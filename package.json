@@ -1,0 +1,26 @@
+{
+  "name": "@lwilhem/ian-poc",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "build": "tsc --NoEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^1.1.1",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "@vitejs/plugin-react-swc": "^3.4.1",
+    "eslint": "^8.53.0",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0"
+  }
+}
