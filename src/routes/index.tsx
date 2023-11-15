@@ -35,7 +35,7 @@ function Root() {
 
       recognition.onend = function () {
         if (isRecording) {
-          setCurrentIndex((prev) => prev++)
+          setCurrentIndex((prev) => prev + 1)
           recognition.start();
         }
       };
@@ -52,10 +52,6 @@ function Root() {
     };
   }, []);
 
-  useEffect(() => {
-    console.log(results)
-  }, [results]);
-
   const startTranscription = () => {
     if (recognitionRef.current) {
       recognitionRef.current.start();
@@ -66,7 +62,7 @@ function Root() {
   const stopTranscription = () => {
     if (recognitionRef.current) {
       recognitionRef.current.stop();
-      setCurrentIndex((prev) => prev++)
+      setCurrentIndex((prev) => prev + 1)
       setIsRecording(false);
     }
   };
