@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {HiMicrophone} from "react-icons/hi2";
 
 function Root() {
-  const [transcript, setTranscript] = useState<string>([]);
+  const [transcripts, setTranscripts] = useState<string[]>([]);
   const [isRecording, setIsRecording] = useState(false);
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
 
@@ -16,18 +16,19 @@ function Root() {
       recognition.interimResults = true;
 
       recognition.onresult = function (event) {
-        let currentTranscript = "";
-        for (let i = event.resultIndex; i < event.results.length; ++i) {
-          currentTranscript += event.results[i][0].transcript;
+        console.log('Speech recognition result', event.results)
+        const results = [];
+        for (let i = 0; i < event.results.length; i++) {
+          results.push(event.results[i][0].transcript);
         }
-        setTranscript(currentTranscript);
+        setTranscripts(results);
       };
 
       recognition.onerror = function (event) {
         console.error('Speech recognition error', event);
       };
 
-      recognition.onend = function() {
+      recognition.onend = function () {
         if (isRecording) {
           recognition.start();
         }
@@ -75,7 +76,11 @@ function Root() {
       <div className="w-full p-12 overflow-y-scroll">
         <p className="text-lg text-white mb-4">Speaker 1</p>
         <p className="text-white text-xl">
-          {transcript}
+          {transcripts.map((transcript) => (
+            <span key={transcript}>
+              {transcript}
+            </span>
+          ))}
         </p>
       </div>
       <div className="py-12">
