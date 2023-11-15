@@ -90,7 +90,7 @@ function Root() {
           <>
             {prevResults.map(results => (
               <div>
-                <p className="text-lg text-white mb-2 text-blue-600 font-semibold">Gilles</p>
+                <p className="text-lg mb-2 text-blue-600 font-semibold">Gilles</p>
                 <p className="text-white text-xl mb-12">
                   {results?.map(result => (
                     result?.map(transcript => (
@@ -105,7 +105,7 @@ function Root() {
           </>
           {isRecording && (
             <div>
-              <p className="text-lg text-white mb-2 text-blue-600 font-semibold">Gilles</p>
+              <p className="text-lg mb-2 text-blue-600 font-semibold">Gilles</p>
               <p className="text-white text-xl mb-12">
                 <>
                   {results.map(result => (
