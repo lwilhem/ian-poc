@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
-import React, { useEffect, useRef, useState } from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import {HiMicrophone, HiSpeakerWave} from 'react-icons/hi2'
 import {Link} from "react-router-dom";
 
 function Root() {
+  const [prevResults, setPrevResults] = useState<string[][][]>([])
   const [results, setResults] = useState<string[][]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isRecording, setIsRecording] = useState(false)
@@ -43,8 +44,7 @@ function Root() {
       }
 
       recognitionRef.current = recognition
-    }
-    else {
+    } else {
       console.log('Your browser does not support the Web Speech API')
     }
 
@@ -57,6 +57,7 @@ function Root() {
   const startTranscription = () => {
     if (recognitionRef.current) {
       recognitionRef.current.start()
+      setResults([])
       setIsRecording(true)
     }
   }
@@ -65,6 +66,7 @@ function Root() {
     if (recognitionRef.current) {
       recognitionRef.current.stop()
       setCurrentIndex(prev => prev + 1)
+      setPrevResults(prev => [...prev, results])
       setIsRecording(false)
     }
   }
@@ -84,18 +86,36 @@ function Root() {
         style={{gridTemplateRows: '1fr auto'}}
       >
         <div className="w-full p-12 overflow-y-scroll">
-          <p className="text-lg text-white mb-4">Speaker 1</p>
-          <p className="text-white text-xl">
-            <>
-              {results.map(result => (
-                result.map(transcript => (
-                  <span key={transcript}>
-                  {transcript}
-                </span>
-                ))
-              ))}
-            </>
-          </p>
+          <>
+            {prevResults.map((results) => (
+              <div>
+                <p className="text-lg text-white mb-2 text-blue-600 font-semibold">Gilles</p>
+                <p className="text-white text-xl mb-12">
+                  {results?.map((result) => (
+                    result?.map(transcript => (
+                      <span key={transcript}>
+                      {transcript}
+                    </span>
+                    ))
+                  ))}
+                </p>
+              </div>
+            ))}
+          </>
+          {isRecording && <div>
+            <p className="text-lg text-white mb-2 text-blue-600 font-semibold">Gilles</p>
+            <p className="text-white text-xl mb-12">
+              <>
+                {results.map(result => (
+                  result?.map(transcript => (
+                    <span key={transcript}>
+                    {transcript}
+                  </span>
+                  ))
+                ))}
+              </>
+            </p>
+          </div>}
         </div>
         <div
           className="py-12 w-full grid grid-cols-3 justify-items-center"
