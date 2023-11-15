@@ -19,7 +19,8 @@
     "react-router-dom": "^6.18.0"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^1.1.1",
+    "@antfu/eslint-config": "^1.1.2",
+    "@types/dom-speech-recognition": "^0.0.4",
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "@vitejs/plugin-react-swc": "^3.4.1",
