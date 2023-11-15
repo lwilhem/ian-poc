@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-import { useEffect, useRef, useState } from 'react'
-import { HiMicrophone } from 'react-icons/hi2'
+import React, { useEffect, useRef, useState } from 'react'
+import {HiMicrophone, HiSpeakerWave} from 'react-icons/hi2'
+import {Link} from "react-router-dom";
 
 function Root() {
   const [results, setResults] = useState<string[][]>([])
@@ -77,35 +78,47 @@ function Root() {
   }
 
   return (
-    <main
-      className="h-screen grid grid-cols-1 justify-items-center bg-neutral-800"
-      style={{ gridTemplateRows: '1fr auto' }}
-    >
-      <div className="w-full p-12 overflow-y-scroll">
-        <p className="text-lg text-white mb-4">Speaker 1</p>
-        <p className="text-white text-xl">
-          <>
-            {results.map(result => (
-              result.map(transcript => (
-                <span key={transcript}>
+    <>
+      <main
+        className="h-screen grid grid-cols-1 justify-items-center bg-neutral-800"
+        style={{gridTemplateRows: '1fr auto'}}
+      >
+        <div className="w-full p-12 overflow-y-scroll">
+          <p className="text-lg text-white mb-4">Speaker 1</p>
+          <p className="text-white text-xl">
+            <>
+              {results.map(result => (
+                result.map(transcript => (
+                  <span key={transcript}>
                   {transcript}
                 </span>
-              ))
-            ))}
-          </>
-        </p>
-      </div>
-      <div className="py-12">
-        <button
-          onClick={toggleTranscription}
-          className={isRecording
-            ? 'p-3 rounded-full bg-white text-red-500 outline outline-red-500 transition'
-            : 'p-3 rounded-full bg-red-500 hover:bg-red-600 text-white transition'}
+                ))
+              ))}
+            </>
+          </p>
+        </div>
+        <div
+          className="py-12 w-full grid grid-cols-3 justify-items-center"
+          style={{gridTemplateColumns: '1fr 1f 1fr'}}
         >
-          <HiMicrophone className="w-6 h-6" />
-        </button>
-      </div>
-    </main>
+          <div></div>
+          <button
+            onClick={toggleTranscription}
+            className={isRecording
+              ? 'p-3 aspect-square flex items-center justify-center rounded-full bg-white text-red-500 outline outline-red-500 transition'
+              : 'p-3 aspect-square flex items-center justify-center rounded-full bg-red-500 hover:bg-red-600 text-white transition'}
+          >
+            <HiMicrophone className="w-6 h-6"/>
+          </button>
+          <Link
+            to="/text-to-speech"
+            className='p-3 aspect-square flex items-center justify-center rounded-full hover:bg-neutral-700 text-white transition border-2 border-white'
+          >
+            <HiSpeakerWave className="w-6 h-6"/>
+          </Link>
+        </div>
+      </main>
+    </>
   )
 }
 

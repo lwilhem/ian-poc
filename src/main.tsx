@@ -6,11 +6,16 @@ import {
 } from 'react-router-dom'
 import './index.css'
 import Root from './routes'
+import TextToSpeech from "./routes/TextToSpeech.tsx";
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Root />,
+  },
+  {
+    path: '/text-to-speech',
+    element: <TextToSpeech />,
   },
 ])
 
