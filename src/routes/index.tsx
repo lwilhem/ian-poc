@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import React, {useEffect, useRef, useState} from 'react'
-import {HiMicrophone, HiSpeakerWave} from 'react-icons/hi2'
-import {Link} from "react-router-dom";
+import { useEffect, useRef, useState } from 'react'
+import { HiMicrophone, HiSpeakerWave } from 'react-icons/hi2'
+import { Link } from 'react-router-dom'
 
 function Root() {
   const [prevResults, setPrevResults] = useState<string[][][]>([])
@@ -44,7 +44,8 @@ function Root() {
       }
 
       recognitionRef.current = recognition
-    } else {
+    }
+    else {
       console.log('Your browser does not support the Web Speech API')
     }
 
@@ -83,43 +84,45 @@ function Root() {
     <>
       <main
         className="h-screen grid grid-cols-1 justify-items-center bg-neutral-800"
-        style={{gridTemplateRows: '1fr auto'}}
+        style={{ gridTemplateRows: '1fr auto' }}
       >
         <div className="w-full p-12 overflow-y-scroll">
           <>
-            {prevResults.map((results) => (
+            {prevResults.map(results => (
               <div>
                 <p className="text-lg text-white mb-2 text-blue-600 font-semibold">Gilles</p>
                 <p className="text-white text-xl mb-12">
-                  {results?.map((result) => (
+                  {results?.map(result => (
                     result?.map(transcript => (
                       <span key={transcript}>
-                      {transcript}
-                    </span>
+                        {transcript}
+                      </span>
                     ))
                   ))}
                 </p>
               </div>
             ))}
           </>
-          {isRecording && <div>
-            <p className="text-lg text-white mb-2 text-blue-600 font-semibold">Gilles</p>
-            <p className="text-white text-xl mb-12">
-              <>
-                {results.map(result => (
-                  result?.map(transcript => (
-                    <span key={transcript}>
-                    {transcript}
-                  </span>
-                  ))
-                ))}
-              </>
-            </p>
-          </div>}
+          {isRecording && (
+            <div>
+              <p className="text-lg text-white mb-2 text-blue-600 font-semibold">Gilles</p>
+              <p className="text-white text-xl mb-12">
+                <>
+                  {results.map(result => (
+                    result?.map(transcript => (
+                      <span key={transcript}>
+                        {transcript}
+                      </span>
+                    ))
+                  ))}
+                </>
+              </p>
+            </div>
+          )}
         </div>
         <div
           className="py-12 w-full grid grid-cols-3 justify-items-center"
-          style={{gridTemplateColumns: '1fr 1f 1fr'}}
+          style={{ gridTemplateColumns: '1fr 1f 1fr' }}
         >
           <div></div>
           <button
@@ -128,13 +131,13 @@ function Root() {
               ? 'p-3 aspect-square flex items-center justify-center rounded-full bg-white text-red-500 outline outline-red-500 transition'
               : 'p-3 aspect-square flex items-center justify-center rounded-full bg-red-500 hover:bg-red-600 text-white transition'}
           >
-            <HiMicrophone className="w-6 h-6"/>
+            <HiMicrophone className="w-6 h-6" />
           </button>
           <Link
             to="/text-to-speech"
-            className='p-3 aspect-square flex items-center justify-center rounded-full hover:bg-neutral-700 text-white transition border-2 border-white'
+            className="p-3 aspect-square flex items-center justify-center rounded-full hover:bg-neutral-700 text-white transition border-2 border-white"
           >
-            <HiSpeakerWave className="w-6 h-6"/>
+            <HiSpeakerWave className="w-6 h-6" />
           </Link>
         </div>
       </main>
