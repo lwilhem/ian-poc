@@ -1,10 +1,11 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {HiMicrophone} from "react-icons/hi2";
 
 function Root() {
-  const [transcripts, setTranscripts] = useState<string[]>([]);
+  const [results, setResults] = useState<string[][]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
 
   useEffect(() => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
@@ -21,7 +22,11 @@ function Root() {
         for (let i = 0; i < event.results.length; i++) {
           results.push(event.results[i][0].transcript);
         }
-        setTranscripts(results);
+        setResults((prev) => {
+          const newResults = [...prev];
+          newResults[currentIndex] = results;
+          return newResults;
+        });
       };
 
       recognition.onerror = function (event) {
@@ -30,32 +35,38 @@ function Root() {
 
       recognition.onend = function () {
         if (isRecording) {
+          setCurrentIndex((prev) => prev++)
           recognition.start();
         }
       };
 
-      setRecognition(recognition)
+      recognitionRef.current = recognition;
     } else {
       console.log('Your browser does not support the Web Speech API');
     }
 
     return () => {
-      if (recognition) {
-        recognition.stop();
+      if (recognitionRef.current) {
+        recognitionRef.current.stop();
       }
     };
   }, []);
 
+  useEffect(() => {
+    console.log(results)
+  }, [results]);
+
   const startTranscription = () => {
-    if (recognition) {
-      recognition.start();
+    if (recognitionRef.current) {
+      recognitionRef.current.start();
       setIsRecording(true);
     }
   };
 
   const stopTranscription = () => {
-    if (recognition) {
-      recognition.stop();
+    if (recognitionRef.current) {
+      recognitionRef.current.stop();
+      setCurrentIndex((prev) => prev++)
       setIsRecording(false);
     }
   };
@@ -76,11 +87,15 @@ function Root() {
       <div className="w-full p-12 overflow-y-scroll">
         <p className="text-lg text-white mb-4">Speaker 1</p>
         <p className="text-white text-xl">
-          {transcripts.map((transcript) => (
-            <span key={transcript}>
-              {transcript}
-            </span>
-          ))}
+          <>
+            {results.map((result) => (
+              result.map((transcript) => (
+                <span key={transcript}>
+                  {transcript}
+                </span>
+              ))
+            ))}
+          </>
         </p>
       </div>
       <div className="py-12">
