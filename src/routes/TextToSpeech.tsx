@@ -1,9 +1,9 @@
-import React from 'react'
+import { useState } from 'react'
 import { HiMicrophone, HiSpeakerWave } from 'react-icons/hi2'
 import { Link } from 'react-router-dom'
 
 const TextToSpeech: React.FC = () => {
-  const [text, setText] = React.useState('')
+  const [text, setText] = useState('')
 
   return (
     <>
@@ -25,7 +25,7 @@ const TextToSpeech: React.FC = () => {
         >
           <div></div>
           <button
-            // @ts-expect-error responsive
+            // @ts-expect-error responsive Cors Error
             onClick={() => responsiveVoice.speak(text, 'French Male')}
             className="p-3 aspect-square flex items-center justify-center rounded-full bg-red-500 hover:bg-red-600 text-white transition"
           >
