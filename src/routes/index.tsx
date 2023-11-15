@@ -1,53 +1,60 @@
 import {useEffect, useState} from "react";
-import {CheetahWorker, type CheetahTranscript} from "@picovoice/cheetah-web";
-import {WebVoiceProcessor} from "@picovoice/web-voice-processor";
-import cheetahParams from "./model";
 import {HiMicrophone} from "react-icons/hi2";
 
 function Root() {
-  const [transcripts, setTranscripts] = useState<string[]>([]);
+  const [transcript, setTranscript] = useState<string>([]);
   const [isRecording, setIsRecording] = useState(false);
-  const [cheetah, setCheetah] = useState<CheetahWorker | null>(null);
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
 
   useEffect(() => {
-    async function setupCheetah() {
-      const createdCheetah = await CheetahWorker.create(
-        import.meta.env.VITE_ACCESS_KEY,
-        transcriptCallback,
-        {
-          base64: cheetahParams,
-        },
-        {
-          enableAutomaticPunctuation: true,
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.lang = 'fr-FR';
+      recognition.continuous = true;
+      recognition.interimResults = true;
+
+      recognition.onresult = function (event) {
+        let currentTranscript = "";
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          currentTranscript += event.results[i][0].transcript;
         }
-      );
-      setCheetah(createdCheetah);
+        setTranscript(currentTranscript);
+      };
+
+      recognition.onerror = function (event) {
+        console.error('Speech recognition error', event);
+      };
+
+      recognition.onend = function() {
+        if (isRecording) {
+          recognition.start();
+        }
+      };
+
+      setRecognition(recognition)
+    } else {
+      console.log('Your browser does not support the Web Speech API');
     }
 
-    setupCheetah();
-
     return () => {
-      if (cheetah) {
-        cheetah.release();
+      if (recognition) {
+        recognition.stop();
       }
     };
-  }, [import.meta.env.VITE_ACCESS_KEY, cheetahParams]);
+  }, []);
 
-  function transcriptCallback(cheetahTranscript: CheetahTranscript) {
-    if (cheetahTranscript.transcript === "") return
-    setTranscripts((prevTranscripts) => [...prevTranscripts, cheetahTranscript.transcript]);
-  }
-
-  const startTranscription = async () => {
-    if (cheetah) {
-      await WebVoiceProcessor.subscribe(cheetah);
+  const startTranscription = () => {
+    if (recognition) {
+      recognition.start();
       setIsRecording(true);
     }
   };
 
-  const stopTranscription = async () => {
-    if (cheetah) {
-      await WebVoiceProcessor.unsubscribe(cheetah);
+  const stopTranscription = () => {
+    if (recognition) {
+      recognition.stop();
       setIsRecording(false);
     }
   };
@@ -68,33 +75,19 @@ function Root() {
       <div className="w-full p-12 overflow-y-scroll">
         <p className="text-lg text-white mb-4">Speaker 1</p>
         <p className="text-white text-xl">
-          {transcripts.map((transcript, index) => (
-            <span key={index}>{transcript}</span>
-          ))}
+          {transcript}
         </p>
       </div>
       <div className="py-12">
-        {cheetah
-          ? (
-            <button
-              onClick={toggleTranscription}
-              className={isRecording
-                ? "p-3 rounded-full bg-white text-red-500 outline outline-red-500 transition"
-                : "p-3 rounded-full bg-red-500 hover:bg-red-600 text-white transition"
-              }
-            >
-              <HiMicrophone className="w-6 h-6"/>
-            </button>
-          )
-          : (
-            <button
-              disabled
-              className="p-3 rounded-full bg-red-500 hover:bg-red-600 text-white transition opacity-60"
-            >
-              <HiMicrophone className="w-6 h-6"/>
-            </button>
-          )
-        }
+        <button
+          onClick={toggleTranscription}
+          className={isRecording
+            ? "p-3 rounded-full bg-white text-red-500 outline outline-red-500 transition"
+            : "p-3 rounded-full bg-red-500 hover:bg-red-600 text-white transition"
+          }
+        >
+          <HiMicrophone className="w-6 h-6"/>
+        </button>
       </div>
     </main>
   )
