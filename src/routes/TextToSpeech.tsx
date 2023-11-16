@@ -5,6 +5,12 @@ import { Link } from 'react-router-dom'
 const TextToSpeech: React.FC = () => {
   const [text, setText] = useState('')
 
+  const handleSpeak = () => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'fr-FR';
+    speechSynthesis.speak(utterance);
+  };
+
   return (
     <>
       <main
@@ -25,8 +31,7 @@ const TextToSpeech: React.FC = () => {
         >
           <div></div>
           <button
-            // @ts-expect-error responsive Cors Error
-            onClick={() => responsiveVoice.speak(text, 'French Male')}
+            onClick={handleSpeak}
             className="p-3 aspect-square flex items-center justify-center rounded-full bg-red-500 hover:bg-red-600 text-white transition"
           >
             <HiSpeakerWave className="w-6 h-6" />
