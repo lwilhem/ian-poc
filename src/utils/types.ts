@@ -6,7 +6,3 @@ export interface ITranscriptObject {
 export interface ISpeaker {
   name: string
 }
-
-export function useSpeechRecognitionAPI() {
-
-}
