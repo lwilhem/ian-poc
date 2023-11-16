@@ -1,25 +1,39 @@
 {
-  "compilerOptions": {
-    "composite": true,
-    "target": "esnext",
-    "jsx": "react-jsx",
-    "lib": ["esnext", "dom", "dom.iterable"],
-    "useDefineForClassFields": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "types": ["vite/client", "dom-speech-recognition"],
-    "allowImportingTsExtensions": true,
-    "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noEmit": true,
-    "allowSyntheticDefaultImports": true,
-    "isolatedModules": true,
-    "verbatimModuleSyntax": true,
-    "skipLibCheck": true
-  },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "dist", "**/*.js", "**/*.jsx"]
+	"compilerOptions": {
+		"target": "esnext",
+		"jsx": "react-jsx",
+		"lib": [
+			"esnext",
+			"dom",
+			"dom.iterable"
+		],
+		"useDefineForClassFields": true,
+		"module": "esnext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"types": [
+			"vite/client",
+			"dom-speech-recognition"
+		],
+		"allowImportingTsExtensions": true,
+		"strict": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noEmit": true,
+		"allowSyntheticDefaultImports": true,
+		"isolatedModules": true,
+		"verbatimModuleSyntax": true,
+		"skipLibCheck": true
+	},
+	"include": [
+		"**/*.ts",
+		"**/*.tsx"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"**/*.js",
+		"**/*.jsx"
+	]
 }

@@ -6,10 +6,10 @@ const TextToSpeech: React.FC = () => {
   const [text, setText] = useState('')
 
   const handleSpeak = () => {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'fr-FR';
-    speechSynthesis.speak(utterance);
-  };
+    const utterance = new SpeechSynthesisUtterance(text)
+    utterance.lang = 'fr-FR'
+    speechSynthesis.speak(utterance)
+  }
 
   return (
     <>

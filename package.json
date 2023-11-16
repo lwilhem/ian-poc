@@ -1,34 +1,34 @@
 {
-  "name": "@lwilhem/ian-poc",
-  "type": "module",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "dev": "vite",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "build": "tsc --NoEmit && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "@picovoice/cheetah-web": "^1.1.15",
-    "@picovoice/web-voice-processor": "^4.0.8",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.12.0",
-    "react-router-dom": "^6.18.0"
-  },
-  "devDependencies": {
-    "@antfu/eslint-config": "^1.1.2",
-    "@types/dom-speech-recognition": "^0.0.4",
-    "@types/react": "^18.2.37",
-    "@types/react-dom": "^18.2.15",
-    "@vitejs/plugin-react-swc": "^3.4.1",
-    "autoprefixer": "^10.4.16",
-    "eslint": "^8.53.0",
-    "postcss": "^8.4.31",
-    "tailwindcss": "^3.3.5",
-    "typescript": "^5.2.2",
-    "vite": "^4.5.0"
-  }
+	"name": "@lwilhem/ian-poc",
+	"type": "module",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"dev": "vite",
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix",
+		"build": "tsc --NoEmit && vite build",
+		"preview": "vite preview"
+	},
+	"dependencies": {
+		"@picovoice/cheetah-web": "^1.1.15",
+		"@picovoice/web-voice-processor": "^4.0.8",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-icons": "^4.12.0",
+		"react-router-dom": "^6.18.0"
+	},
+	"devDependencies": {
+		"@antfu/eslint-config": "^1.1.2",
+		"@types/dom-speech-recognition": "^0.0.4",
+		"@types/react": "^18.2.37",
+		"@types/react-dom": "^18.2.15",
+		"@vitejs/plugin-react-swc": "^3.4.1",
+		"autoprefixer": "^10.4.16",
+		"eslint": "^8.53.0",
+		"postcss": "^8.4.31",
+		"tailwindcss": "^3.3.5",
+		"typescript": "^5.2.2",
+		"vite": "^4.5.0"
+	}
 }
